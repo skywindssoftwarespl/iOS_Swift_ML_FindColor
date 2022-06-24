@@ -39,33 +39,14 @@ extension UIImage {
       }
     
     func resize(_ image: UIImage, imageViewHeight: CGFloat, imageWidth: CGFloat) -> UIImage {
-        var actualHeight = Float(image.size.height)
-        var actualWidth = Float(image.size.width)
+        let actualHeight = Float(image.size.height)
+        let actualWidth = Float(image.size.width)
         let maxHeight: Float = Float(imageViewHeight)
         let maxWidth: Float = Float(imageWidth)
-        var imgRatio: Float = actualWidth / actualHeight
-        let maxRatio: Float = maxWidth / maxHeight
+        let _: Float = actualWidth / actualHeight
+        let _: Float = maxWidth / maxHeight
         let compressionQuality: Float = 0.5
-        //50 percent compression
-        if actualHeight > maxHeight || actualWidth > maxWidth {
-            if imgRatio < maxRatio {
-                //adjust width according to maxHeight
-                imgRatio = maxHeight / actualHeight
-                actualWidth = imgRatio * actualWidth
-                actualHeight = maxHeight
-            }
-            else if imgRatio > maxRatio {
-                //adjust height according to maxWidth
-                imgRatio = maxWidth / actualWidth
-                actualHeight = imgRatio * actualHeight
-                actualWidth = maxWidth
-            }
-            else {
-                actualHeight = maxHeight
-                actualWidth = maxWidth
-            }
-        }
-        let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(actualWidth), height: CGFloat(actualHeight))
+        let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(imageWidth), height: CGFloat(imageViewHeight))
         UIGraphicsBeginImageContext(rect.size)
         image.draw(in: rect)
         let img = UIGraphicsGetImageFromCurrentImageContext()
